@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  user_backend:
+    build: .
+    ports:
+      - 8000:3000
+    volumes:
+      - .:/app
+    env_file:
+    - .env
+  pg:
+        image: postgres
+        container_name: 'db'
+        restart: always
+        ports: 
+            - "5432:5432"
+        volumes: 
+            - ./docker/init.sql:/docker-entrypoint-initdb.d/init-database.sql
+            - ./docker/data:/var/lib/postgresql/data
+        environment: 
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
