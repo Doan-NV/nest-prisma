@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { Prisma, User } from '@prisma/client';
+import { BcryptHelper } from 'src/helper/bcrypt';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UsersService {
@@ -27,24 +29,21 @@ export class UsersService {
     }
   }
 
-  // async remove(id: string): Promise<void> {
-  //   try {
-  //     await this.usersRepository.delete(id);
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
-
-  // public async create(user: UserDto): Promise<any> {
-  //   try {
-  //     let { password } = user;
-  //     password = await BcryptHelper.hash(password);
-  //     const newUser = await this.usersRepository.save({ ...user, password });
-  //     return newUser;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
+  public async create(user: UserDto): Promise<any> {
+    try {
+      let { password } = user;
+      password = await BcryptHelper.hash(password);
+      const newUser = await this.prisma.user.create({
+        data: {
+          ...user,
+          password,
+        },
+      });
+      return newUser;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   public async validateUser(params) {
     try {
@@ -58,22 +57,4 @@ export class UsersService {
       throw error;
     }
   }
-
-  // public async update(id: string, data = {}) {
-  //   try {
-  //     return await this.usersRepository.update(id, data);
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
-
-  // private buildUser(user: User) {
-  //   const data = {
-  //     id: user.id,
-  //     firstName: user.firstName,
-  //     email: user.email,
-  //     lastName: user.lastName,
-  //   };
-  //   return data;
-  // }
 }

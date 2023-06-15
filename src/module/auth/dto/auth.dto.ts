@@ -22,32 +22,36 @@ export class RegisterUserDto {
   @MaxLength(254)
   email: string;
 
-  @MaxLength(254)
-  @IsNotEmpty()
   @IsString()
-  emailCode: string;
+  @MaxLength(254)
+  name: string;
+
+  // @MaxLength(254)
+  // @IsNotEmpty()
+  // @IsString()
+  // emailCode: string;
 
   @IsString()
   password: string;
 
-  @IsString()
-  @IsNotEmpty()
-  passwordConfirm: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // passwordConfirm: string;
 
-  @IsString()
-  @MaxLength(40)
-  @MinLength(3)
-  username: string;
+  // @IsString()
+  // @MaxLength(40)
+  // @MinLength(3)
+  // username: string;
 
-  @IsString()
-  @MinLength(2)
-  @MaxLength(40)
-  firstName: string;
+  // @IsString()
+  // @MinLength(2)
+  // @MaxLength(40)
+  // firstName: string;
 
-  @IsString()
-  @MinLength(2)
-  @MaxLength(40)
-  lastName: string;
+  // @IsString()
+  // @MinLength(2)
+  // @MaxLength(40)
+  // lastName: string;
 }
 
 export class VerifyEmailDto {

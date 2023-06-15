@@ -35,112 +35,17 @@ export class AuthController {
       ErrorHelper.UnauthorizedException(error);
     }
   }
-  // @Post('/register')
-  // async register(
-  //   @Body() data: RegisterUserDto,
-  //   @Res({ passthrough: true }) response: Response
-  // ): Promise<any> {
-  //   try {
-  //     const token = await this.authService.register(data);
-  //     response.cookie('key', `Bearer ${token}`, { httpOnly: true });
-  //     return { token };
-  //   } catch (error) {
-  //     ErrorHelper.BadGatewayException(error);
-  //   }
-  // }
-
-  // @Post('/logout')
-  // @UseGuards(AuthGuard)
-  // async logout(
-  //   @Res({ passthrough: true }) response: Response,
-  //   @Req() request: Request
-  // ): Promise<any> {
-  //   try {
-  //     await this.authService.logout(request.cookies.key);
-  //     response.clearCookie('key', { httpOnly: true });
-  //     return {
-  //       message: 'success',
-  //     };
-  //   } catch (error) {
-  //     ErrorHelper.BadGatewayException(error);
-  //   }
-  // }
-
-  // @Get('/verify-token')
-  // @UseGuards(AuthGuard)
-  // async user(@Req() request: Request) {
-  //   try {
-  //     const authorization = request.cookies['key'];
-  //     const [bearer, token] = authorization.split(' ');
-  //     if (bearer == 'Bearer' && token != '') {
-  //       const user = await this.authService.verifyToken(token);
-
-  //       if (!user) {
-  //         ErrorHelper.UnauthorizedException('Unauthorized Exception');
-  //       }
-  //       return this.userService.findOneBy({ id: user.id });
-  //     } else {
-  //       ErrorHelper.UnauthorizedException('Unauthorized');
-  //     }
-  //   } catch (error) {
-  //     ErrorHelper.NotFoundException(error);
-  //   }
-  // }
-
-  // @UseGuards(AuthGuard)
-  // @Put('auth/password')
-  // async updatePassword(
-  //   @Req() request: Request,
-  //   @Body('password') password: string,
-  //   @Body('passwordConfirm') passwordConfirm: string
-  // ) {
-  //   if (password !== passwordConfirm) {
-  //     ErrorHelper.UnauthorizedException('Unauthorized Exception');
-  //   }
-
-  //   const cookie = request.cookies.key;
-  //   const [bearer, token] = cookie.split(' ');
-  //   const { id } = await this.authService.verifyToken(token);
-
-  //   await this.userService.update(id, {
-  //     password: await BcryptHelper.hash(password),
-  //   });
-
-  //   return this.userService.findOneBy({ id });
-  // }
-
-  // @Get('/info')
-  // @UseGuards(AuthGuard)
-  // async getInfo(@Req() request: Request) {
-  //   try {
-  //     const authorization = request.cookies['key'];
-
-  //     const [bearer, token] = authorization.split(' ');
-  //     console.log('🚀 ~ file:token', token);
-
-  //     if (bearer == 'Bearer' && token != '') {
-  //       const user = await this.authService.verifyToken(token);
-
-  //       if (!user) {
-  //         ErrorHelper.UnauthorizedException('Unauthorized Exception');
-  //       }
-  //       return this.userService.findOneBy({ id: user.id });
-  //     } else {
-  //       ErrorHelper.UnauthorizedException('Unauthorized');
-  //     }
-  //   } catch (error) {
-  //     ErrorHelper.BadGatewayException(error);
-  //   }
-  // }
-
-  // @Post('/verify-email')
-  // async create(@Body() body: VerifyEmailDto): Promise<any> {
-  //   try {
-  //     const data = await this.authService.sendVerifyEmail(body);
-  //     return data;
-  //   } catch (error) {
-  //     console.log(error);
-  //     ErrorHelper.BadRequestException(error);
-  //   }
-  // }
+  @Post('/register')
+  async register(
+    @Body() data: RegisterUserDto,
+    @Res({ passthrough: true }) response: Response
+  ): Promise<any> {
+    try {
+      const token = await this.authService.register(data);
+      response.cookie('key', `Bearer ${token}`, { httpOnly: true });
+      return { token };
+    } catch (error) {
+      ErrorHelper.BadGatewayException(error);
+    }
+  }
 }
